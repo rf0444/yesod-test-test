@@ -3,16 +3,23 @@ module PersistTest
     ( persistSpecs
     ) where
 
+import Database.Persist.GenericSql (Connection)
 import qualified Database.Persist as P
 
 import TestImport
 import Model
 
+withDeleteUserTable :: OneSpec Connection a -> OneSpec Connection a
+withDeleteUserTable f = do
+  runDB $ P.deleteWhere ([] :: [P.Filter User])
+  ret <- f
+  runDB $ P.deleteWhere ([] :: [P.Filter User])
+  return ret
+
 persistSpecs :: Specs
 persistSpecs = do
   describe "These are some simpl tests 1" $ do
-    it "should be original if insert" $ do
-      runDB $ P.deleteWhere ([] :: [P.Filter User])
+    it "should be original if insert" $ withDeleteUserTable $ do
       key <- runDB $ P.insert $ User {
         userIdent = "hoge ident", userPassword = Just "hoge password"
       }
