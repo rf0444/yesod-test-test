@@ -1,0 +1,20 @@
+Default: &defaults
+  database: yesod-test-test.sqlite3
+  poolsize: 10
+
+Development:
+  <<: *defaults
+
+Testing:
+  database: yesod-test-test_test.sqlite3
+  <<: *defaults
+
+Staging:
+  database: yesod-test-test_staging.sqlite3
+  poolsize: 100
+  <<: *defaults
+
+Production:
+  database: yesod-test-test_production.sqlite3
+  poolsize: 100
+  <<: *defaults

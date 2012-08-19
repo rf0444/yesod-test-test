@@ -1,0 +1,7 @@
+dist/
+*.sqlite3
+*.aes
+static/tmp
+cabal-dev/
+*.swp
+*.ghci
