@@ -9,12 +9,22 @@ import Settings
 import Yesod.Default.Config
 import Yesod.Test
 import Application (makeFoundation)
+import Test.Hspec (hspec)
 
+import NormalTest
 import HomeTest
 
 main :: IO ()
 main = do
-    conf <- loadConfig $ (configSettings Testing) { csParseExtra = parseExtra }
-    foundation <- makeFoundation conf
-    app <- toWaiAppPlain foundation
-    runTests app (connPool foundation) homeSpecs
+  normalTest
+  yesodTest
+
+normalTest :: IO ()
+normalTest = hspec normalSpecs
+
+yesodTest :: IO ()
+yesodTest = do
+  conf <- loadConfig $ (configSettings Testing) { csParseExtra = parseExtra }
+  foundation <- makeFoundation conf
+  app <- toWaiAppPlain foundation
+  runTests app (connPool foundation) homeSpecs
