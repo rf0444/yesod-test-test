@@ -5,16 +5,17 @@ module PersistTest
 
 import Database.Persist.GenericSql (Connection)
 import qualified Database.Persist as P
+import Control.Exception.Lifted (bracket_)
 
 import TestImport
 import Model
 
 withDeleteUserTable :: OneSpec Connection a -> OneSpec Connection a
-withDeleteUserTable f = do
-  runDB $ P.deleteWhere ([] :: [P.Filter User])
-  ret <- f
-  runDB $ P.deleteWhere ([] :: [P.Filter User])
-  return ret
+withDeleteUserTable = bracket_ setUpUserTable tearDownUserTable
+  where
+    setUpUserTable = deleteUserTable
+    tearDownUserTable = deleteUserTable
+    deleteUserTable = runDB $ P.deleteWhere ([] :: [P.Filter User])
 
 persistSpecs :: Specs
 persistSpecs = do
