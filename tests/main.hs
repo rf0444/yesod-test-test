@@ -24,7 +24,9 @@ main = do
   yesodTest
 
 normalTest :: IO ()
-normalTest = hspec normalSpecs
+normalTest = do
+  hspec normalSpecs
+  hspec ioSpecs
 
 propTest :: IO ()
 propTest = hspec propSpecs
