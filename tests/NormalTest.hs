@@ -11,7 +11,7 @@ infixr 1 *^=^*
 
 normalSpecs :: Spec
 normalSpecs = do
-  describe "These are some simpl tests 1" $ do
+  describe "These are some simple tests 1" $ do
     it "should be 2 if 1 + 1" $ do
       1 + 1 `shouldBe` 2
     it "should be 0 if 1 - 1" $ do

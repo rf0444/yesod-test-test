@@ -12,17 +12,22 @@ import Application (makeFoundation)
 import Test.Hspec (hspec)
 
 import NormalTest
+import PropTest
 import PersistTest
 import HomeTest
 
 main :: IO ()
 main = do
   normalTest
+  propTest
   persistTest
   yesodTest
 
 normalTest :: IO ()
 normalTest = hspec normalSpecs
+
+propTest :: IO ()
+propTest = hspec propSpecs
 
 persistTest :: IO ()
 persistTest = do

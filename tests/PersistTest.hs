@@ -19,7 +19,7 @@ withDeleteUserTable = bracket_ setUpUserTable tearDownUserTable
 
 persistSpecs :: Specs
 persistSpecs = do
-  describe "These are some simpl tests 1" $ do
+  describe "These are some simple tests 1" $ do
     it "should be original if insert" $ withDeleteUserTable $ do
       key <- runDB $ P.insert $ User {
         userIdent = "hoge ident", userPassword = Just "hoge password"
