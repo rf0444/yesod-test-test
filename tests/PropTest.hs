@@ -5,6 +5,7 @@ module PropTest
 
 import Test.Hspec
 import Test.QuickCheck
+import Test.QuickCheck.Monadic
 import Test.Hspec.QuickCheck
 
 propSpecs :: Spec
@@ -15,6 +16,8 @@ propSpecs = do
   describe "These are some simple prop tests 2" $ do
     prop "should be original list if apply reverse twice" $ prop_rev
     prop "should be greater than or equal to args" $ prop_plus
+  describe "These are some IO prop tests" $ do
+    it "print Int" $ property $ prop_io
 
 prop_rev :: [Int] -> Bool
 prop_rev xs = xs == xs'
@@ -27,4 +30,12 @@ prop_plus a b =
   ==> c >= a .&&. c >= b
  where
   c = a + b
+
+prop_io :: Int -> Property
+prop_io = monadicIO . run . prop_io'
+  where
+    prop_io' :: Int -> IO Bool
+    prop_io' x = do
+      print x
+      return True
 
