@@ -1,7 +1,12 @@
 /static StaticR Static getStatic
+/webs   WebR    Static getStatic
 /auth   AuthR   Auth   getAuth
 
 /favicon.ico FaviconR GET
 /robots.txt RobotsR GET
 
 / HomeR GET POST
+
+/hoge  HogeR  GET
+/hoge2 Hoge2R GET
+

@@ -37,3 +37,12 @@ sampleForm :: Form (FileInfo, Text)
 sampleForm = renderDivs $ (,)
     <$> fileAFormReq "Choose a file"
     <*> areq textField "What's on the file?" Nothing
+
+getHogeR :: Handler RepHtml
+getHogeR = return . RepHtml . toContent $ content
+  where
+    content :: Text
+    content = "<html><body><h1>raw html content works !</h1></body></html>"
+
+getHoge2R :: Handler RepHtml
+getHoge2R = sendFile typeHtml "static/hoge.html"
